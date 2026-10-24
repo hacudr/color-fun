@@ -1,0 +1,20 @@
+// Sven, Kristoff, Olaf, Elsa and Anna in the snowy pines
+winterSky 3
+islands white 3
+green 52 125 222 43 104 282 344
+darkGreen 54 95 157 70 186 97 185
+snow 414 532 508
+frost 531
+#a8754a 256 297 333 353 449 460 429
+#c9a27a 75
+#e8c56a 69 72 73
+skin 82 132 117
+#4f5d75 113 138 241 202 257 315
+#8a5a33 376 478 501 509 554 583
+elsaHair 100 252
+elsaDress 258 345 372
+elsaCape 378 507
+annaHair 98 205
+annaCape 289 293
+annaSkirt 364 346
+olaf 496 490 443 498 515 538 563 581 567 586 590

@@ -1,0 +1,11 @@
+// Mickey dressed as a friendly blanket ghost, with his pumpkin pail
+#ffe3a8 2
+mickey 4 3 33 34 35
+#f6f1ff 5
+mickey 7 6
+glove 10 19
+mickeyShoe 46 47 51 50 42 44 37
+pumpkin 24 25 28 30 39 45 18 17 21
+lantern 31 32 36
+#5a2f1a 23
+wood 15 16 14

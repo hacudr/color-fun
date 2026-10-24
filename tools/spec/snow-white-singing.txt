@@ -1,0 +1,16 @@
+// Snow White with an apple in the forest, a fawn beside her
+sky 2
+leaf 4 3
+leafLight 44 107 92 114 116 152 140 142 143 144 155
+tree 90 88 
+swHair 5 12 22 33 
+red 6 10 40 
+skin 14 76 80 100
+swSleeve 36 84
+swPuff 73
+swBodice 99 91
+swSkirt 101 122 124 137 139 148 149 151 169 171 177 185 173
+skin 182 197
+gold 204
+lightBrown 102 106 104 108 133 135 138
+grass 172

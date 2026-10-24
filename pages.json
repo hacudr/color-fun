@@ -1,0 +1,229 @@
+[
+ {
+  "id": "frozen",
+  "name": "Frozen",
+  "emoji": "❄️",
+  "tint": "#cfeaff",
+  "cover": "elsa-ice-castle",
+  "pages": [
+   {
+    "slug": "elsa-ice-castle",
+    "title": "Elsa and the Ice Palace"
+   },
+   {
+    "slug": "anna-smiling",
+    "title": "Anna Smiling"
+   },
+   {
+    "slug": "elsa-anna-olaf",
+    "title": "Elsa, Anna and Olaf"
+   },
+   {
+    "slug": "snow-babies",
+    "title": "Snow Babies"
+   },
+   {
+    "slug": "elsa-sparkle",
+    "title": "Elsa Sparkles"
+   },
+   {
+    "slug": "anna-falling-snow",
+    "title": "Anna in the Snow"
+   },
+   {
+    "slug": "olaf-elsa-anna",
+    "title": "Olaf, Elsa and Anna"
+   },
+   {
+    "slug": "elsa-swooping-dress",
+    "title": "Elsa's Swooping Dress"
+   },
+   {
+    "slug": "frozen-friends",
+    "title": "Frozen Friends"
+   },
+   {
+    "slug": "elsa-anna-castle",
+    "title": "Elsa and Anna at the Castle"
+   },
+   {
+    "slug": "elsa-swirling-leaves",
+    "title": "Elsa and the Swirling Leaves"
+   }
+  ]
+ },
+ {
+  "id": "princesses",
+  "name": "Princesses",
+  "emoji": "👑",
+  "tint": "#ffd9ec",
+  "cover": "belle-rose",
+  "focus": "50% 20%",
+  "pages": [
+   {
+    "slug": "belle-rose",
+    "title": "Belle and the Rose"
+   },
+   {
+    "slug": "ariel-flounder-sea",
+    "title": "Ariel and Flounder"
+   },
+   {
+    "slug": "snow-white-animals",
+    "title": "Snow White and Friends"
+   },
+   {
+    "slug": "aurora-castle",
+    "title": "Aurora in the Castle"
+   },
+   {
+    "slug": "cinderella-carriage",
+    "title": "Cinderella's Carriage"
+   },
+   {
+    "slug": "jasmine-young",
+    "title": "Little Jasmine"
+   },
+   {
+    "slug": "rapunzel-ariel",
+    "title": "Rapunzel and Ariel"
+   },
+   {
+    "slug": "merida-kawaii",
+    "title": "Little Merida"
+   },
+   {
+    "slug": "moana",
+    "title": "Moana"
+   },
+   {
+    "slug": "mulan-cherry-blossom",
+    "title": "Mulan and the Cherry Blossoms"
+   },
+   {
+    "slug": "ariel-young",
+    "title": "Ariel on Land"
+   },
+   {
+    "slug": "snow-white-singing",
+    "title": "Snow White Singing"
+   },
+   {
+    "slug": "jasmine-palace",
+    "title": "Jasmine at the Palace"
+   },
+   {
+    "slug": "aurora-forest",
+    "title": "Aurora in the Forest"
+   },
+   {
+    "slug": "merida-bow",
+    "title": "Merida and her Bow"
+   },
+   {
+    "slug": "mulan-garden",
+    "title": "Mulan in the Garden"
+   },
+   {
+    "slug": "rapunzel-aurora-merida",
+    "title": "Rapunzel, Aurora and Merida"
+   }
+  ]
+ },
+ {
+  "id": "mickey",
+  "name": "Mickey & Friends",
+  "emoji": "🐭",
+  "tint": "#ffe3a8",
+  "cover": "mickey-haunted-castle",
+  "focus": "50% 55%",
+  "pages": [
+   {
+    "slug": "mickey-minnie-kawaii",
+    "title": "Mickey and Minnie Dress Up"
+   },
+   {
+    "slug": "mickey-blanket-ghost",
+    "title": "Mickey the Friendly Ghost"
+   },
+   {
+    "slug": "eeyore-cape",
+    "title": "Eeyore's Cape"
+   },
+   {
+    "slug": "tigger-pumpkins",
+    "title": "Tigger Bounces"
+   },
+   {
+    "slug": "mickey-minnie-pumpkin",
+    "title": "Mickey and Minnie's Pumpkin"
+   },
+   {
+    "slug": "minnie-cauldron",
+    "title": "Minnie's Magic Pot"
+   },
+   {
+    "slug": "mickey-wizard-broom",
+    "title": "Wizard Mickey"
+   },
+   {
+    "slug": "mickey-friends-costumes",
+    "title": "Costume Party"
+   },
+   {
+    "slug": "mickey-reading",
+    "title": "Mickey Reads a Book"
+   },
+   {
+    "slug": "mickey-haunted-castle",
+    "title": "Mickey at the Castle"
+   }
+  ]
+ },
+ {
+  "id": "halloween",
+  "name": "Pumpkin Party",
+  "emoji": "🎃",
+  "tint": "#ffd2a8",
+  "cover": "olaf-dancing",
+  "focus": "50% 30%",
+  "pages": [
+   {
+    "slug": "olaf-dancing",
+    "title": "Olaf Dances"
+   },
+   {
+    "slug": "ariel-candy-bag",
+    "title": "Ariel Trick-or-Treats"
+   },
+   {
+    "slug": "rapunzel-witch-hat",
+    "title": "Rapunzel's Pumpkins"
+   },
+   {
+    "slug": "ariel-jack-o-lantern",
+    "title": "Ariel Finds a Pumpkin"
+   },
+   {
+    "slug": "cinderella-pumpkin-tower",
+    "title": "Cinderella's Pumpkin Tower"
+   },
+   {
+    "slug": "elsa-halloween-castle",
+    "title": "Elsa's Pumpkins"
+   },
+   {
+    "slug": "princesses-halloween",
+    "title": "Princess Costume Party"
+   },
+   {
+    "slug": "elsa-anna-scavenger-hunt",
+    "title": "Elsa and Anna's Pumpkin Hunt"
+   },
+   {
+    "slug": "cinderella-ballroom",
+    "title": "Cinderella's Pumpkin Ball"
+   }
+  ]
+ }
+]

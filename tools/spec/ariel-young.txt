@@ -1,0 +1,12 @@
+// Little Ariel on land, Flounders swimming around her
+sea 2
+islands #e3f6ff 2
+arielHair 20 95 118 175
+gold 30 48
+hotPink 56
+skin 90 161 172 189 145 300 298
+white 142 148 190 132 137 140 136 138 289
+blue 212 267 250 246 261 275 281
+pink 340 353 356
+flounder 23 162 302 200
+flounderBlue 3 14 34 58 151 159 169 187 215 219 191 199 236 297 301 305 315

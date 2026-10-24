@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Color Fun">
+  <meta name="theme-color" content="#fff4fb">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Color Fun</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Home: the collections -->
+  <section id="home" class="screen">
+    <header class="top">
+      <h1>Color Fun</h1>
+      <button id="gear" class="gear" aria-label="Grown-ups (hold)">
+        <svg viewBox="0 0 24 24"><path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Zm8.1 4.6-.1-1.1 2-1.6-2-3.4-2.4 1a7.6 7.6 0 0 0-1.9-1.1L15.4 4h-3.9l-.4 2.5c-.7.3-1.3.6-1.9 1.1l-2.4-1-2 3.4 2 1.6a7.6 7.6 0 0 0 0 2.2l-2 1.6 2 3.4 2.4-1c.6.5 1.2.8 1.9 1.1l.4 2.6h3.9l.4-2.6c.7-.3 1.3-.6 1.9-1.1l2.4 1 2-3.4-2-1.6Z"/></svg>
+        <span class="ring"></span>
+      </button>
+    </header>
+    <div id="shelves" class="shelves"></div>
+  </section>
+
+  <!-- A collection: its pages -->
+  <section id="shelf" class="screen" hidden>
+    <header class="top">
+      <button class="back" data-go="home" aria-label="Back"><svg viewBox="0 0 24 24"><path d="M3 11.2 12 3l9 8.2V21h-6v-6H9v6H3z"/></svg></button>
+      <h2 id="shelfName"></h2>
+    </header>
+    <div id="cards" class="cards"></div>
+  </section>
+
+  <!-- Colouring -->
+  <section id="color" class="screen" hidden>
+    <header class="top">
+      <button class="back" id="colorBack" aria-label="Back"><svg viewBox="0 0 24 24"><path d="M15.5 3 6.5 12l9 9 2-2-7-7 7-7z"/></svg></button>
+      <div class="meter" id="meter"><div class="fill" id="meterFill"></div><span class="star">★</span></div>
+    </header>
+    <div class="stage" id="colorStage">
+      <div class="page" id="page">
+        <img id="lineImg" alt="">
+        <canvas id="paint"></canvas>
+        <img id="fullImg" class="full" alt="">
+      </div>
+      <canvas id="sparkles" class="sparkles"></canvas>
+    </div>
+  </section>
+
+  <!-- Puzzle -->
+  <section id="puzzle" class="screen" hidden>
+    <header class="top">
+      <button class="back" id="puzzleBack" aria-label="Back"><svg viewBox="0 0 24 24"><path d="M15.5 3 6.5 12l9 9 2-2-7-7 7-7z"/></svg></button>
+    </header>
+    <div class="table" id="table">
+      <div class="board" id="board"><canvas id="ghost"></canvas></div>
+    </div>
+  </section>
+
+  <!-- Well done -->
+  <div id="yay" class="yay" hidden>
+    <div class="yay-card">
+      <div class="big-star">★</div>
+      <div class="yay-buttons">
+        <button id="yayHome" class="round" aria-label="All pictures"><svg viewBox="0 0 24 24"><path d="M4 4h7v7H4zm9 0h7v7h-7zM4 13h7v7H4zm9 0h7v7h-7z"/></svg></button>
+        <button id="yayAgain" class="round" aria-label="Puzzle again"><svg viewBox="0 0 24 24"><path d="M12 5V1L7 6l5 5V7a5 5 0 1 1-5 5H5a7 7 0 1 0 7-7z"/></svg></button>
+        <button id="yayNext" class="round go" aria-label="Next picture"><svg viewBox="0 0 24 24"><path d="M8.5 3 6.5 5l7 7-7 7 2 2 9-9z"/></svg></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- A picture already coloured: colour it again or do its puzzle -->
+  <div id="choose" class="yay" hidden>
+    <div class="yay-card">
+      <img id="chooseImg" class="choose-img" alt="">
+      <div class="yay-buttons">
+        <button id="chooseColor" class="round" aria-label="Color again"><svg viewBox="0 0 24 24"><path d="M20.7 3.3a1 1 0 0 0-1.4 0L10 12.6l1.4 1.4 9.3-9.3a1 1 0 0 0 0-1.4ZM7.5 14C5.6 14 4 15.6 4 17.5c0 1.2-.8 2-2 2.5 1 .9 2.6 1.5 4 1.5 2.9 0 5-2.1 5-4.5 0-1.7-1.6-3-3.5-3Z"/></svg></button>
+        <button id="choosePuzzle" class="round go" aria-label="Puzzle"><svg viewBox="0 0 24 24"><path d="M10 3a2 2 0 0 1 2 2v1h4v4h1a2 2 0 1 1 0 4h-1v4h-4v-1a2 2 0 1 0-4 0v1H4v-4h1a2 2 0 1 0 0-4H4V6h4V5a2 2 0 0 1 2-2Z"/></svg></button>
+      </div>
+      <button id="chooseClose" class="x" aria-label="Close">×</button>
+    </div>
+  </div>
+
+  <!-- For grown-ups: opened by holding the gear -->
+  <div id="grown" class="yay" hidden>
+    <div class="yay-card grown">
+      <h3>For grown-ups</h3>
+      <label class="row">Sounds <input type="checkbox" id="soundOn"></label>
+      <div class="row">Brush
+        <span class="seg" id="brushSeg">
+          <button data-brush="1">Big</button><button data-brush="1.3">Bigger</button><button data-brush="1.7">Biggest</button>
+        </span>
+      </div>
+      <div class="row">Puzzle pieces
+        <span class="seg" id="pieceSeg">
+          <button data-pieces="4">4</button><button data-pieces="6">6</button><button data-pieces="9">9</button>
+        </span>
+      </div>
+      <button id="resetAll" class="plain danger">Start over (forget all progress)</button>
+      <button id="grownClose" class="plain">Done</button>
+    </div>
+  </div>
+
+  <canvas id="confetti" class="confetti"></canvas>
+
+  <script src="sound.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+// Anna, Elsa and Olaf among the snowy pines
+winterSky 3
+islands white 3
+white 7 103
+green 5 193 210 263 410 475 199 306 328 476 481 620 489
+darkGreen 86 378 309 344 446 468 287 369 435 502 548
+snow 640 779 491
+annaHair 39 64
+skin 91 53 482
+annaCape 240 326 276 454 450 466 473 477 474 544
+annaBodice 374
+annaBlouse 438 395
+annaSkirt 469 508 677 687
+darkBrown 715 734 775 764
+elsaHair 20 25
+elsaDress 282 460 478 538 517
+elsaCape 253 451 339
+olaf 528 527
+carrot 562
+olaf 549 597 585 539 607 626 665 685 668 645 709 714 770 787
+coal 669 720 772

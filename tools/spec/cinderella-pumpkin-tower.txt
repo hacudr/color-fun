@@ -1,0 +1,18 @@
+// Cinderella in her work dress stacking pumpkins, Jaq and Gus beside her
+#ffe9c2 2
+cindyHair 3 6 13 52 38
+#6fb7ec 16 23
+skin 5 67 
+white 66 68 73 71 76
+#8fb8e8 70 69 125 193 287
+#3c5a7a 84 91 72 262
+#a8754a 284 295 
+white 401 303 296
+#e8d3a8 436
+navy 312 294 
+cream 290 389 533
+pumpkin 34 81 289 353
+lantern 61 117 121 185
+stem 355
+#9aa4bd 820 818
+stem 14

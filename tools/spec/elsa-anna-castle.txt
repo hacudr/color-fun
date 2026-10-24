@@ -1,0 +1,16 @@
+// Elsa and Anna hugging before the ice palace
+winterSky 3
+islands white 3
+elsaHair 17 22 38 31 72 220 263 192
+skin 80 59 222 158 87 293 572
+elsaDress 381 362 611
+elsaCape 449 522 528
+annaHair 43 69 73 66 197 235 278 280 217 353 450
+white 296 306
+annaCape 364 352 376 430 345 275 557 560 576 580
+lightPink 469
+annaBlouse 523 561 578
+annaBodice 552 549 550 551
+annaSkirt 446 268
+gold 575
+iceMid 47 74 175 161 206 98 202 224 234 251 252 254

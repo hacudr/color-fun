@@ -1,0 +1,21 @@
+// Olaf dancing among the pumpkins under a big moon
+duskSky 3 2 10 5 6 48 81 85
+moon 14
+navy 25 76 94
+tree 4 18
+leafLight 73 139 141 311 389 390
+tree 284
+olaf 84 138 191 285 353
+twig 36 55 117 115
+white 95 92
+carrot 102
+red 114
+white 118 116
+pink 122
+coal 218 221 299 301 341 343
+stem 121 123 357
+pumpkin 127 147 282 355 371 
+lantern 359 358 363 360 377 384 382 380 388
+stone 304 312 313 338 319 342 344 346 350 356 361 364 370 345 348 362 365
+stem 315 354
+path 185 245 376

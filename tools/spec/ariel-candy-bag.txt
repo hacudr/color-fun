@@ -1,0 +1,19 @@
+// Ariel in a costume cape with her candy pail: "Spooktacular Seas!"
+sea 2
+islands #e3f6ff 2
+orange 4 3 7 13 10 18 8 5 6 11 15 20 22 23 25 30 39
+white 12 14
+#e3f6ff 28 62 78 128 114 149
+arielHair 31 24
+lightYellow 41
+skin 38 87 89
+arielShell 90 86
+#c06fd8 85 124
+#e9a3ff 162 156
+arielTail 161 165 166 167 180 182 181
+pumpkin 127 125 126 148 152 123
+lantern 148
+orange 98
+seaweed 157 171 164 163
+sand 185
+pink 183 184 186 188 191 194 196 197 199 189 193 198 190 192 195

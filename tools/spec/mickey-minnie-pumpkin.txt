@@ -1,0 +1,22 @@
+// Vampire Mickey and witch Minnie holding a Mickey pumpkin, friendly ghosts above
+duskSky 2
+moon 17
+islands nightSky 2 17
+white 7 6 23 19
+gold 5 16 15 30
+#9fb8e8 29 34 38 37 47 59 99 94
+mickey 33 44 88 36 50 41 31 65
+face 45 91 97 49
+white 64 72 69 70 61
+witch 32 42 76 71 48 35
+lavender 43
+navy 112 152 157 147 149 155 176 151 158 135
+red 106 104 113
+white 104 106 148 162 177 170
+#5a3a8a 203 207 205 217 220 230
+mickeyRed 199 204 235 
+mickeyShoe 276 249 245
+glove 172 187
+pumpkin 146 153 154 192 189 128 123
+lantern 153 154 189 192
+grass 194

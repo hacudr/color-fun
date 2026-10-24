@@ -1,0 +1,25 @@
+// Snow White, Aurora, Jasmine and Ariel dressed up for Halloween
+#ffe9c2 2
+lightGrey 7 13 14 19 22 27 30 33 35 43 9 10 4 21 17 26 28 32 34 41
+navy 11 39 56 64
+purple 23 29 36 40 53 57 58 65
+swHair 81 86 112 204
+skin 127 220 
+witch 226 217 301 345 329 430 357 404 519 335
+swBodice 377 369 392
+#d64f8a 517
+auroraHair 52 72 85 
+witchDeep 49 68 69
+skin 75 143
+witch 231 331 227 268
+#7a4fb0 436 381 520
+jasmineHair 89 90 
+skinTan 95 195 260 262
+witch 50 71
+lilac 141
+jasmine 295 286 311 371 426 303 298 
+red 380 428 332
+arielHair 80 121 153 154
+skin 122 225 300 310 281 516
+#7ad6b8 327 341 476 291 308 394
+gold 439

@@ -1,0 +1,13 @@
+// Little Jasmine in her market cloak, the palace behind
+sky 2
+cloud 3 4 25 45 100 116
+#c9a27a 9 22 97 101 152 149 121 135 263
+#e8d3a8 81 102 99
+skinTan 27 120 118 122
+jasmine 119 125 131 144 220
+jasmineDeep 168 250
+jasmineHair 24
+gold 5 103 261 266 267 270
+palace 175 229 203 231 222 235 160 183 187 194 213 240 241 199 251 255 158
+#6f8fe3 139 157 170 167
+sand 259 260 262

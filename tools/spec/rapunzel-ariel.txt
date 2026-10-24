@@ -1,0 +1,20 @@
+// Rapunzel and Ariel by the sea, the floating lanterns rising
+#3e4a8c 2
+islands lantern 2
+rapunzelHair 14 54 16 19 30 62 73 80 125 138 142 218 306 398 309 403 408 420
+skin 27 174 227 253 288 334
+rapunzelLight 76 114 134 116 79 75 112
+rapunzelDress 130 133 150 152
+#7a4fb0 221 222 226 219 241 147 166 169
+pascal 177
+lantern 104
+stone 171 206 223 229 260 263 299 215 283 336 363 365 493 494
+#a99e93 290 387 413
+sea 390 419 342 405
+arielHair 269 371 379 340 312
+pink 302
+arielShell 368 385 392 386
+arielTail 395 394 407 452 481 421 424 391
+flounder 404 423 428
+flounderBlue 396 399
+red 248

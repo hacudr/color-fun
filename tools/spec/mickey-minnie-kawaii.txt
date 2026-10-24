@@ -1,0 +1,16 @@
+// Little Mickey and Minnie peeking over a pumpkin
+#e9dcff 2
+witch 3 45 20
+gold 8 10 9
+mickey 5 12 4 6 18 26 15 24 11
+face 29 39 28 16 54 37 58 
+white 34 35 25 27
+red 43 30
+glove 41 55 49 89 91 98 68
+minnieBow 90 87 99 101 81
+mickeyRed 67 73 72 74 84 96 95
+pumpkin 92
+lantern 104 105 108 103 102 107 110 115 114 117 113 111
+orange 116 132
+gold 130
+#c9402f 126

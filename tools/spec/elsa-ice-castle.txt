@@ -1,0 +1,15 @@
+// Elsa in her ice dress before the ice palace
+winterSky 3
+islands white 3
+moon 21
+cloud 92 11 239 184 295
+skin 80 282
+elsaHair 53
+elsaCape 202 264 261
+elsaDress 221 271 292 299 311 317
+elsaDeep 280 318 319 320
+iceMid 5 6 20 153 108 107 171 174 160 224 219 263 267 262 270 279 274 236
+sky 8
+frost 9 186 296
+iceMid 56 132 305
+snow 269 312

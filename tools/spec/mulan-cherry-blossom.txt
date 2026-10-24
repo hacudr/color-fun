@@ -1,0 +1,15 @@
+// Little Mulan under the cherry tree
+sky 39 113
+#ffd6e6 2 10 15
+brown 19 150
+islands blossom 39 113 2 10 15 19 150
+jasmineHair 208 295 390
+gold 187 280 
+hotPink 337 373
+skin 302 499 500 494 556 571 651
+mulanPink 504 513 559 506
+mulanRed 597 582 669 702 703 713 716 602
+mulanBlue 605 601 598 670
+#ffe0ea 705 708
+stone 678 680 681 684 686 685 696 692 694 695 697 689 699
+grass 704

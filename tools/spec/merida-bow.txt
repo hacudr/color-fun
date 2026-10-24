@@ -1,0 +1,12 @@
+// Merida with her bow, autumn leaves blowing
+#fff3dc 2
+islands orange 2
+meridaHair 6 13
+skin 15 72 80 133 136 150 178
+meridaDress 45 64 205 44 92
+meridaDeep 123 168
+#fff3dc 87 115
+#3c5a7a 206 210 220 208 211 216
+gold 233 236 278 286 372 319 394 400 492 447 432 448 631 527 582 782 863 817 878 847 867 320 349 418 457
+darkBrown 851
+wood 165 170 186 131

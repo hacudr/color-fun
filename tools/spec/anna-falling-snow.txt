@@ -1,0 +1,19 @@
+// Anna in her winter cape, snow falling
+winterSky 3
+islands white 3
+white 67 99 132 305 6
+annaHair 21
+skin 61
+annaCape 133 157 290 296 294 330 303 374
+annaBodice 227
+annaBlouse 276 237
+annaSkirt 310 350 509 516 502 497
+darkBrown 583 573
+darkGreen 301 302 365 355
+green 326 328 361 332 356 370 360
+lightGreen 384
+frost 385 441 411
+snow 403 538
+annaHair 64 83
+darkBrown 545 562 556
+annaHair 55 37

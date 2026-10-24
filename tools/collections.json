@@ -1,0 +1,69 @@
+[
+  {
+    "id": "frozen", "name": "Frozen", "emoji": "❄️", "tint": "#cfeaff", "cover": "elsa-ice-castle",
+    "pages": [
+      ["elsa-ice-castle", "Elsa and the Ice Palace"],
+      ["anna-smiling", "Anna Smiling"],
+      ["elsa-anna-olaf", "Elsa, Anna and Olaf"],
+      ["snow-babies", "Snow Babies"],
+      ["elsa-sparkle", "Elsa Sparkles"],
+      ["anna-falling-snow", "Anna in the Snow"],
+      ["olaf-elsa-anna", "Olaf, Elsa and Anna"],
+      ["elsa-swooping-dress", "Elsa's Swooping Dress"],
+      ["frozen-friends", "Frozen Friends"],
+      ["elsa-anna-castle", "Elsa and Anna at the Castle"],
+      ["elsa-swirling-leaves", "Elsa and the Swirling Leaves"]
+    ]
+  },
+  {
+    "id": "princesses", "name": "Princesses", "emoji": "👑", "tint": "#ffd9ec", "cover": "belle-rose", "focus": "50% 20%",
+    "pages": [
+      ["belle-rose", "Belle and the Rose"],
+      ["ariel-flounder-sea", "Ariel and Flounder"],
+      ["snow-white-animals", "Snow White and Friends"],
+      ["aurora-castle", "Aurora in the Castle"],
+      ["cinderella-carriage", "Cinderella's Carriage"],
+      ["jasmine-young", "Little Jasmine"],
+      ["rapunzel-ariel", "Rapunzel and Ariel"],
+      ["merida-kawaii", "Little Merida"],
+      ["moana", "Moana"],
+      ["mulan-cherry-blossom", "Mulan and the Cherry Blossoms"],
+      ["ariel-young", "Ariel on Land"],
+      ["snow-white-singing", "Snow White Singing"],
+      ["jasmine-palace", "Jasmine at the Palace"],
+      ["aurora-forest", "Aurora in the Forest"],
+      ["merida-bow", "Merida and her Bow"],
+      ["mulan-garden", "Mulan in the Garden"],
+      ["rapunzel-aurora-merida", "Rapunzel, Aurora and Merida"]
+    ]
+  },
+  {
+    "id": "mickey", "name": "Mickey & Friends", "emoji": "🐭", "tint": "#ffe3a8", "cover": "mickey-haunted-castle", "focus": "50% 55%",
+    "pages": [
+      ["mickey-minnie-kawaii", "Mickey and Minnie Dress Up"],
+      ["mickey-blanket-ghost", "Mickey the Friendly Ghost"],
+      ["eeyore-cape", "Eeyore's Cape"],
+      ["tigger-pumpkins", "Tigger Bounces"],
+      ["mickey-minnie-pumpkin", "Mickey and Minnie's Pumpkin"],
+      ["minnie-cauldron", "Minnie's Magic Pot"],
+      ["mickey-wizard-broom", "Wizard Mickey"],
+      ["mickey-friends-costumes", "Costume Party"],
+      ["mickey-reading", "Mickey Reads a Book"],
+      ["mickey-haunted-castle", "Mickey at the Castle"]
+    ]
+  },
+  {
+    "id": "halloween", "name": "Pumpkin Party", "emoji": "🎃", "tint": "#ffd2a8", "cover": "olaf-dancing", "focus": "50% 30%",
+    "pages": [
+      ["olaf-dancing", "Olaf Dances"],
+      ["ariel-candy-bag", "Ariel Trick-or-Treats"],
+      ["rapunzel-witch-hat", "Rapunzel's Pumpkins"],
+      ["ariel-jack-o-lantern", "Ariel Finds a Pumpkin"],
+      ["cinderella-pumpkin-tower", "Cinderella's Pumpkin Tower"],
+      ["elsa-halloween-castle", "Elsa's Pumpkins"],
+      ["princesses-halloween", "Princess Costume Party"],
+      ["elsa-anna-scavenger-hunt", "Elsa and Anna's Pumpkin Hunt"],
+      ["cinderella-ballroom", "Cinderella's Pumpkin Ball"]
+    ]
+  }
+]

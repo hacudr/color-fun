@@ -1,0 +1,28 @@
+// Magician Mickey with Minnie on her broom, Donald, Pluto and friends
+duskSky 2
+moon 4
+white 5 3 15 110
+navy 6 10 16 39 47
+lantern 18 26
+purple 40
+mickey 27 44 22 31 21 90 25
+face 59 29 36
+white 89 100
+red 168
+witch 23 33 64 82
+mickeyRed 96 126
+wood 149
+glove 97 101 116 148 150 76 242 293 280 194
+mickey 163 274 196 306 
+white 196 306
+mickeyRed 350 443 
+mickeyShoe 485 488 480 487 482 479
+pumpkin 329 347 465 328 419 491 494 495 490 492 501 496 497 505 498 504 
+lantern 465 494 495 501 497 505
+grass 406
+// the friends at the back
+white 314 335 336 285 309 331 263 193 188 166 192 235 
+pooh 369 332 402 462 426 275
+#7aa8e0 375 338 341 362 413 428 255
+gold 160 152 251 238 181 171
+witch 273 337

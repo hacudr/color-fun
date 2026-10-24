@@ -1,0 +1,16 @@
+// Elsa, Olaf and Anna in the falling snow
+winterSky 6
+islands white 6
+white 3 8 14 92 84
+elsaHair 251 270 323 297 285 326 435 560 605 722 507 512
+skin 333 436 338
+elsaCape 568 640
+elsaDress 670 869 619 684
+olaf 368 321 289 379 340 418 533 452 696 864
+carrot 319
+coal 724 883
+annaHair 481 525 314 324 612 268 281 307 312 293 408 458 556 570 585 700 866
+annaCape 509 655 849 555
+annaBlouse 815 731 877
+annaBodice 714
+annaSkirt 669

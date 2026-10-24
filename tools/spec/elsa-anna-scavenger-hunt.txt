@@ -1,0 +1,23 @@
+// Anna the witch and Elsa with little horns, reading a map, friendly ghosts around
+#fff1d6 2
+white 4 7 6 5 49 160
+navy 3 19 35 70 201 225
+witch 21 40
+gold 34 
+annaHair 53 56 131 188 182 61
+skin 73 189 245 229 272
+annaCape 196 202 205 214 217 227 246 254 274
+#6f8fe3 228 
+lightGreen 285 327 279
+witch 339 342 341
+lightBrown 223
+elsaHair 25 23 22 26 43 30 33 57 153 193 107 176 171
+skin 47 
+darkRed 25 33
+elsaDress 172 187 183 209 210 211 219 
+elsaDeep 198 212 251 330 284
+#9a5fd0 226 239 333
+elsaDress 300 343 356
+pumpkin 313 334 335 305 277 282 344 355 362 359 370 371 382 380 350 391 393 389 373 400 401 377 378 381 379
+mickey 278 283
+grass 365 364 349 363 399

@@ -1,0 +1,17 @@
+// Little Snow White with a fawn in the meadow
+sky 3
+cloud 2 12 4 28
+#3a3550 6 18 26 31 33 40
+swSleeve 7 5 17 73
+skin 30 54 57 96 89 161 166
+white 49
+swPuff 64 59 92
+swBodice 71 67
+swSkirt 116
+gold 169 168
+green 39 47 115 72 139
+darkGreen 127 147
+islands pink 39 47 115
+lightBrown 55 107 93 142 145 146 148
+cream 112 126 136
+grass 140

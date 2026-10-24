@@ -1,0 +1,11 @@
+// Little Merida with her curls
+#dff2c8 2
+meridaHair 3 4 5 6 8 9 17 28 46 50 73 85 91 98
+gold 10 13 14 18 93 97
+skin 26 52
+iris 41 45
+cream 56
+meridaDress 57 104 118 99 78 87 150 129 157 134 141 65 66 81 115 120 89
+#3c5a7a 119 122 123 128 137 131 139
+brown 206 184
+darkBrown 229 228

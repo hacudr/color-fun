@@ -1,0 +1,24 @@
+// Wizard Mickey with a broom and a pumpkin, "Happy Halloween"
+#e9dcff 2
+gold 5 3 4 9 11 13 14 73 79 174 181 186
+lightYellow 15
+wood 70 81 166 204 160
+glove 141 125 153
+mickeyRed 157 190 177 182 151 149
+witch 18 62 55 47 
+gold 48 49 58
+mickey 63 47 69 74 72 110 76 140 148 147 150 193 195
+face 69 74 72 123
+white 77 75
+red 142
+mickeyRed 171 180 179
+mickeyShoe 202 199 158
+glove 126 67 66
+mickey 140 150 147 148 76 110
+pumpkin 42 60
+lantern 46 45 60
+stem 19
+orange 131 138 134 133 132 164 159 155 154 152 167 175 172 168
+grass 201
+leaf 211 187
+witch 208 203

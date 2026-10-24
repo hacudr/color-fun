@@ -1,0 +1,15 @@
+// Elsa sweeping her snowflake cape
+winterSky 3
+islands white 3
+white 4 6 116 133 276 164 176 275 322 363 501 514
+elsaHair 125 136
+skin 167 211 92
+elsaCape 238 243 258 268
+elsaDress 246 304 307
+elsaDeep 282 321 293 335 384 380 328 250 319
+iceMid 432 438 389 451 609 631 508 686 644 337 346 332 350
+frost 308 277 587 692
+iceMid 270
+darkGreen 341 344 329 339
+green 345 347 326 338
+snow 595 743
