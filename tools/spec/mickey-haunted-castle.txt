@@ -19,3 +19,9 @@ mickey 523 524
 glove 404 405
 mickeyShoe 526 527 533 534
 pumpkin 309 353 372 443 491 498 517 324 369 433 474 481 492 500 518
+
+// faces, second pass
+mickey 428
+grey 429
+eyeWhite 334 335
+darkRed 458

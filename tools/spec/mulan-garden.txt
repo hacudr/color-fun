@@ -16,3 +16,9 @@ gold 511 515 535 517 513 531 532 554 549
 stone 652 675 689 711 651 653 650
 lightGreen 552 654
 grass 687
+
+// faces, second pass
+fill eyeWhite 363,278 423,255
+fill irisBrown 370,279 430,250
+lips 235
+fill lips 417,318

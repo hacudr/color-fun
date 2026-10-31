@@ -22,3 +22,7 @@ orange 131 138 134 133 132 164 159 155 154 152 167 175 172 168
 grass 201
 leaf 211 187
 witch 208 203
+
+// faces, second pass
+mickey 123
+darkRed 136

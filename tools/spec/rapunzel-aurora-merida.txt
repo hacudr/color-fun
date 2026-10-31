@@ -16,3 +16,13 @@ meridaHair 141 151 142 373 428 387 327
 skin 164 228 523
 meridaDress 291 449 519 573 563 508
 wood 439 561 589
+
+// faces, second pass
+skin 161
+rapunzelHair 154 162 168
+fill eyeWhite 548,470 607,468 843,527
+fill green 258,522 308,510
+fill lips 287,558 580,515
+fill white 580,507
+fill iris 558,468 598,467 850,525 902,528
+fill lips 880,568 880,572

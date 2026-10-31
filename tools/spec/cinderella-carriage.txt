@@ -14,3 +14,8 @@ pumpkin 184 203 199 270 185 420 424
 #a6dcf7 231 204 267 303
 gold 332 354 414 566 497 597
 grey 742 748 771 767
+
+// faces, second pass
+fill eyeWhite 510,294
+fill lips 535,342 537,349
+fill iris 525,294 564,301

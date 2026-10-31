@@ -14,3 +14,8 @@ annaBodice 552 549 550 551
 annaSkirt 446 268
 gold 575
 iceMid 47 74 175 161 206 98 202 224 234 251 252 254
+
+// faces, second pass
+eyeWhite 145 130 171 158
+iris 147 127 178 159
+lips 223

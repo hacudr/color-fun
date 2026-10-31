@@ -14,3 +14,12 @@ annaCape 509 655 849 555
 annaBlouse 815 731 877
 annaBodice 714
 annaSkirt 669
+
+// faces, second pass
+eyeWhite 414 409
+fill iris 127,568
+fill eyeWhite 238,545
+lips 433
+fill lips 170,635
+eyeWhite 372 374 390 385
+lips 425

@@ -13,3 +13,7 @@ mulanBlue 605 601 598 670
 #ffe0ea 705 708
 stone 678 680 681 684 686 685 696 692 694 695 697 689 699
 grass 704
+
+// faces, second pass
+eyeWhite 405 416 414
+lips 481 486

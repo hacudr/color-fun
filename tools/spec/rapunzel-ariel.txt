@@ -18,3 +18,11 @@ arielTail 395 394 407 452 481 421 424 391
 flounder 404 423 428
 flounderBlue 396 399
 red 248
+
+// faces, second pass
+fill lips 392,189
+fill eyeWhite 385,144 442,166
+fill green 396,146 435,165
+fill lips 932,845
+fill eyeWhite 925,804 982,807
+fill iris 919,801 970,805

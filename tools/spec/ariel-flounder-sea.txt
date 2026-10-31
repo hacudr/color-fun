@@ -9,3 +9,11 @@ arielTail 115 131 138 135 141 143 149 154 153 226 230 246 273 216 220
 #6fe0b4 227 233 257 278 215 231 235
 flounder 13 189 247 12 14 25 26 36 176 180 244 261
 flounderBlue 4 17 27 18 70 177 187 240 253
+
+// faces, second pass
+eyeWhite 53
+iris 54
+fill iris 607,337
+fill eyeWhite 597,350
+lips 78 79
+fill white 605,330

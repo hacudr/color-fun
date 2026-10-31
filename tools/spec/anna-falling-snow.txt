@@ -17,3 +17,9 @@ snow 403 538
 annaHair 64 83
 darkBrown 545 562 556
 annaHair 55 37
+
+// faces, second pass
+fill eyeWhite 394,159 416,161
+fill iris 410,161
+fill iris 454,168
+fill eyeWhite 460,165

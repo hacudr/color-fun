@@ -20,3 +20,8 @@ glove 172 187
 pumpkin 146 153 154 192 189 128 123
 lantern 153 154 189 192
 grass 194
+
+// faces, second pass
+mickey 91 97
+lips 118 130
+darkRed 116 122

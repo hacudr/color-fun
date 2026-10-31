@@ -14,3 +14,9 @@ lantern 104 105 108 103 102 107 110 115 114 117 113 111
 orange 116 132
 gold 130
 #c9402f 126
+
+// faces, second pass
+mickey 37 54
+grey 38 57
+lips 58
+darkRed 62

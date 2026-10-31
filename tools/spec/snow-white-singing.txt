@@ -14,3 +14,8 @@ skin 182 197
 gold 204
 lightBrown 102 106 104 108 133 135 138
 grass 172
+
+// faces, second pass
+fill eyeWhite 462,270 520,250
+fill irisBrown 477,270 530,252
+fill lips 527,306 523,317

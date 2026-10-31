@@ -13,3 +13,10 @@ iceMid 270
 darkGreen 341 344 329 339
 green 345 347 326 338
 snow 595 743
+
+// faces, second pass
+eyeWhite 184
+fill iris 438,261
+fill iris 485,265
+fill eyeWhite 472,268
+fill iris 478,262

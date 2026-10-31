@@ -18,3 +18,7 @@ annaHair 98 205
 annaCape 289 293
 annaSkirt 364 346
 olaf 496 490 443 498 515 538 563 581 567 586 590
+
+// faces, second pass
+elsaHair 92 85 109 121 154 177 197 217
+annaHair 115

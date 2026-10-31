@@ -14,3 +14,7 @@ white 250 265 275 281 280 285 400 407 410
 ice 301 328 369 324 420 428 445 447
 iceMid 379 383 406
 frost 386 409
+
+// faces, second pass
+eyeWhite 164
+fill iris 403,134

@@ -17,3 +17,8 @@ orange 98
 seaweed 157 171 164 163
 sand 185
 pink 183 184 186 188 191 194 196 197 199 189 193 198 190 192 195
+
+// faces, second pass
+eyeWhite 46 53
+white 71
+lips 77

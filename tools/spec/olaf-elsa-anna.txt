@@ -19,3 +19,10 @@ olaf 528 527
 carrot 562
 olaf 549 597 585 539 607 626 665 685 668 645 709 714 770 787
 coal 669 720 772
+
+// faces, second pass
+elsaHair 97 106 124 165 171 177 180 186 198
+annaHair 79
+fill iris 202,177 262,180
+fill eyeWhite 220,178 268,183 476,166
+eyeWhite 122

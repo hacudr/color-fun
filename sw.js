@@ -2,7 +2,7 @@
 // On the first visit every file is fetched and kept; after that everything is
 // answered from the device. `node tools/release.js` changes VERSION whenever a
 // file changes, and the browser then fetches the new set once it is online.
-const VERSION = '3ffe074d9b';
+const VERSION = '4150eac685';
 const CACHE = 'color-fun-' + VERSION;
 const SHELL = ['./', 'index.html', 'style.css', 'app.js', 'sound.js', 'pages.json', 'manifest.webmanifest', 'icons/icon-180.png', 'icons/icon-512.png'];
 

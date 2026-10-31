@@ -317,7 +317,7 @@ function resolve(slug, img, seg) {
   }
   // the paint buckets: light pixels joined to the point, then a pixel more so
   // the soft edge of the line takes the colour too
-  const FILL_MAX = 6000;
+  const FILL_MAX = 2000;
   for (const { name, at: [ax, ay] } of fills) {
     // a point a pixel or two onto a line moves to the nearest light pixel
     let x0 = ax, y0 = ay;
