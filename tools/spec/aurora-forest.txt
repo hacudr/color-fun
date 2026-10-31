@@ -14,3 +14,9 @@ skin 27 201 205
 red 115
 green 109 154 248 290
 auroraPink 160 193 207 287 333 352 355 374 385 359 295 448 380 459 457 469 455 487 485 486
+
+// face, filled point by point
+fill iris 750,230 710,255
+fill eyeWhite 748,242 702,258
+lips 73
+fill lips 747,288

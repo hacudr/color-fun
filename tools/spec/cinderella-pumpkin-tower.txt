@@ -16,3 +16,10 @@ lantern 61 117 121 185
 stem 355
 #9aa4bd 820 818
 stem 14
+
+// face, filled point by point
+lips 43 51
+white 49
+eyeWhite 25
+fill iris 668,353 743,373
+fill eyeWhite 677,355

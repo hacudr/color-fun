@@ -13,3 +13,9 @@ sky 8
 frost 9 186 296
 iceMid 56 132 305
 snow 269 312
+
+// face, filled point by point
+fill eyeWhite 285,175 237,182
+fill iris 289,172
+fill lips 272,218 280,212
+elsaHair 27 28 29 43 53 67 94 97 66 105 111 123 124 141

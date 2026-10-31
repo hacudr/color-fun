@@ -11,3 +11,11 @@ gold 5 103 261 266 267 270
 palace 175 229 203 231 222 235 160 183 187 194 213 240 241 199 251 255 158
 #6f8fe3 139 157 170 167
 sand 259 260 262
+
+// face, filled point by point
+eyeWhite 63
+lips 93 94
+fill irisBrown 478,383 483,370 586,451
+fill eyeWhite 566,451
+fill white 600,437
+fill white 507,387

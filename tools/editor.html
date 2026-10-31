@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Color Editor</title>
+<style>
+  :root { --ink: #3d3350; --soft: #8a7f99; --line: #e6dfee; --accent: #ff5fa2; --bg: #faf7fc; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; font: 15px/1.4 system-ui, -apple-system, 'Segoe UI', sans-serif; color: var(--ink); background: var(--bg); }
+  body { display: grid; grid-template-columns: 1fr 340px; height: 100vh; }
+  #view { position: relative; overflow: auto; background: #ece6f1; }
+  #stack { position: relative; margin: 20px auto; transform-origin: 0 0; }
+  #stack canvas { position: absolute; left: 0; top: 0; image-rendering: auto; }
+  #art { box-shadow: 0 4px 18px rgba(60, 30, 90, 0.18); background: white; }
+  #guess { pointer-events: none; }
+  #hover, #lasso { pointer-events: none; }
+  #art.pick { cursor: copy; } #art.fill { cursor: crosshair; } #art.split { cursor: cell; }
+  aside { border-left: 1px solid var(--line); background: white; overflow-y: auto; padding: 14px 16px 30px; }
+  h1 { font-size: 18px; margin: 0 0 10px; }
+  h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--soft); margin: 18px 0 8px; }
+  select, button, input[type=color] { font: inherit; }
+  select { width: 100%; padding: 6px; border-radius: 8px; border: 1px solid var(--line); }
+  .current { display: flex; align-items: center; gap: 10px; }
+  .current .big { width: 54px; height: 54px; border-radius: 12px; border: 2px solid var(--line); }
+  .current input[type=color] { width: 44px; height: 36px; border: 0; padding: 0; background: none; cursor: pointer; }
+  .swatches { display: grid; grid-template-columns: repeat(10, 1fr); gap: 4px; }
+  .swatches button { aspect-ratio: 1; border-radius: 6px; border: 1px solid rgba(0,0,0,.12); cursor: pointer; padding: 0; }
+  .swatches button.on { outline: 3px solid var(--accent); outline-offset: 1px; }
+  .tools { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .tools button, .row button { padding: 8px 6px; border-radius: 10px; border: 1px solid var(--line); background: #fff; cursor: pointer; }
+  .tools button.on { background: var(--accent); border-color: var(--accent); color: white; }
+  .row { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+  .row label { display: flex; gap: 6px; align-items: center; cursor: pointer; }
+  #save { width: 100%; padding: 12px; border-radius: 12px; border: 0; background: #43c06b; color: white; font-weight: 700; font-size: 16px; cursor: pointer; margin-top: 8px; }
+  #save:disabled { background: #b9dcc4; cursor: default; }
+  #status { margin-top: 8px; min-height: 1.4em; color: var(--soft); }
+  #status.err { color: #c0304a; }
+  .help { color: var(--soft); font-size: 13px; }
+  .help b { color: var(--ink); }
+  #tip { position: fixed; pointer-events: none; background: rgba(40,30,55,.9); color: white; padding: 3px 8px; border-radius: 6px; font-size: 12px; display: none; z-index: 5; }
+  #loading { position: absolute; inset: 0; display: grid; place-items: center; color: var(--soft); font-size: 18px; background: rgba(236, 230, 241, .6); }
+  #loading[hidden] { display: none; }
+</style>
+</head>
+<body>
+<div id="view">
+  <div id="stack">
+    <canvas id="art"></canvas>
+    <canvas id="guess"></canvas>
+    <canvas id="hover"></canvas>
+    <canvas id="lasso"></canvas>
+  </div>
+  <div id="loading">Loading…</div>
+</div>
+<aside>
+  <h1>Color Editor</h1>
+  <select id="pagePick"></select>
+
+  <h2>Color</h2>
+  <div class="current">
+    <div class="big" id="big"></div>
+    <div>
+      <div id="curName">—</div>
+      <input type="color" id="custom" title="Any color">
+    </div>
+  </div>
+  <h2>Palette</h2>
+  <div class="swatches" id="swatches"></div>
+  <h2>Recent</h2>
+  <div class="swatches" id="recent"></div>
+
+  <h2>Tool</h2>
+  <div class="tools">
+    <button data-tool="fill" class="on" title="Tap an area to color it (F)">🪣 Fill</button>
+    <button data-tool="pick" title="Tap an area to borrow its color (I, or hold Alt)">💧 Pick</button>
+    <button data-tool="split" title="Draw a loop around part of an area (S)">✂️ Split</button>
+  </div>
+
+  <h2>View</h2>
+  <div class="row">
+    <label><input type="checkbox" id="showGuess"> Show guessed areas</label>
+  </div>
+  <div class="row" style="margin-top:8px">
+    <button id="zoomOut">−</button><span id="zoomLabel">100%</span><button id="zoomIn">+</button><button id="zoomFit">Fit</button>
+    <button id="undo" title="Ctrl+Z">↶ Undo</button>
+  </div>
+
+  <button id="save" disabled>Save &amp; rebuild</button>
+  <div id="status"></div>
+
+  <h2>How it works</h2>
+  <div class="help">
+    <p><b>Fill:</b> choose a color, then tap any area of the picture. Areas are the spaces between the black lines.</p>
+    <p><b>Pick:</b> tap an area to borrow its color (or hold <b>Alt</b> while tapping).</p>
+    <p><b>Split:</b> when two parts run together because a line has a gap (like hair into sky), start inside the part to change and draw a loop around just that part.</p>
+    <p><b>Show guessed areas</b> stripes every area the computer colored by guessing from its neighbor. These are the ones most worth checking.</p>
+    <p>Hover to see each area outlined. Scroll with the mouse wheel; hold <b>Ctrl</b> and scroll to zoom.</p>
+    <p><b>Save</b> writes your choices into the page's color recipe and rebuilds it. Changes reach the iPad after the next push to GitHub.</p>
+  </div>
+</aside>
+<div id="tip"></div>
+
+<script>
+'use strict';
+const $ = (s) => document.querySelector(s);
+const art = $('#art'), guess = $('#guess'), hover = $('#hover'), lassoEl = $('#lasso');
+const actx = art.getContext('2d'), gctx = guess.getContext('2d'), hctx = hover.getContext('2d'), lctx = lassoEl.getContext('2d');
+
+let P = null; // the open page
+let names = {}; // hex -> palette name
+let current = '#ff9cc2';
+let tool = 'fill';
+let zoom = 1;
+const recent = [];
+
+const hexToRgb = (h) => [1, 3, 5].map((k) => parseInt(h.slice(k, k + 2), 16));
+
+async function boot() {
+  const [groups, palette] = await Promise.all([fetch('/api/pages').then((r) => r.json()), fetch('/api/palette').then((r) => r.json())]);
+  const pick = $('#pagePick');
+  for (const g of groups) {
+    const og = document.createElement('optgroup');
+    og.label = g.name;
+    for (const p of g.pages) og.append(new Option(p.title, p.slug));
+    pick.append(og);
+  }
+  for (const [name, hex] of Object.entries(palette)) {
+    names[hex.toLowerCase()] = names[hex.toLowerCase()] || name;
+    const b = document.createElement('button');
+    b.style.background = hex;
+    b.title = name;
+    b.dataset.hex = hex.toLowerCase();
+    b.onclick = () => setColor(hex);
+    $('#swatches').append(b);
+  }
+  const want = new URLSearchParams(location.search).get('page') || 'ariel-jack-o-lantern';
+  pick.value = want;
+  pick.onchange = () => {
+    if (P && P.dirty() && !confirm('You have unsaved changes. Leave this page anyway?')) return (pick.value = P.slug);
+    history.replaceState(null, '', '?page=' + pick.value);
+    open(pick.value);
+  };
+  setColor(current);
+  open(pick.value);
+}
+
+function setColor(hex) {
+  current = hex.toLowerCase();
+  $('#big').style.background = current;
+  $('#custom').value = current;
+  $('#curName').textContent = names[current] ? `${names[current]} (${current})` : current;
+  document.querySelectorAll('.swatches button').forEach((b) => b.classList.toggle('on', b.dataset.hex === current));
+}
+$('#custom').oninput = (e) => setColor(e.target.value);
+
+function remember(hex) {
+  const i = recent.indexOf(hex);
+  if (i >= 0) recent.splice(i, 1);
+  recent.unshift(hex);
+  recent.length = Math.min(recent.length, 20);
+  const el = $('#recent');
+  el.textContent = '';
+  for (const h of recent) {
+    const b = document.createElement('button');
+    b.style.background = h;
+    b.title = names[h] || h;
+    b.dataset.hex = h;
+    b.onclick = () => setColor(h);
+    el.append(b);
+  }
+  setColor(current);
+}
+
+async function open(slug) {
+  $('#loading').hidden = false;
+  $('#loading').textContent = 'Loading…';
+  const [info, labelsBuf, grayBuf, img] = await Promise.all([
+    fetch('/api/info/' + slug).then((r) => r.json()),
+    fetch('/api/labels/' + slug).then((r) => r.arrayBuffer()),
+    fetch('/api/gray/' + slug).then((r) => r.arrayBuffer()),
+    new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = `/pages/${slug}.webp?` + Date.now(); }),
+  ]);
+  const { w, h } = info;
+  const labels = new Uint16Array(labelsBuf);
+  const gray = new Uint8Array(grayBuf);
+  // every region's pixels, grouped (a counting sort), and its bounding box
+  let max = 0;
+  for (let i = 0; i < labels.length; i++) if (labels[i] > max) max = labels[i];
+  const start = new Uint32Array(max + 2);
+  for (let i = 0; i < labels.length; i++) start[labels[i] + 1]++;
+  for (let k = 1; k < start.length; k++) start[k] += start[k - 1];
+  const fillAt = start.slice();
+  const pix = new Uint32Array(labels.length);
+  for (let i = 0; i < labels.length; i++) pix[fillAt[labels[i]]++] = i;
+  const box = new Map();
+  for (let id = 1; id <= max; id++) {
+    let x0 = w, y0 = h, x1 = -1, y1 = -1;
+    for (let k = start[id]; k < start[id + 1]; k++) {
+      const x = pix[k] % w, y = (pix[k] / w) | 0;
+      if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y;
+    }
+    if (x1 >= 0) box.set(id, [x0, y0, x1, y1]);
+  }
+  for (const c of [art, guess, hover, lassoEl]) { c.width = w; c.height = h; }
+  actx.drawImage(img, 0, 0);
+  const data = actx.getImageData(0, 0, w, h);
+  const chosen = new Set(info.chosen);
+  P = {
+    slug, w, h, labels, gray, pix, start, box, data, chosen,
+    colours: info.colours, // the page as built
+    assign: {}, patches: [], undo: [],
+    dirty() { return Object.keys(this.assign).length + this.patches.length > 0; },
+  };
+  P.hoverData = hctx.createImageData(w, h);
+  drawGuesses();
+  fit();
+  $('#loading').hidden = true;
+  showDirty();
+  status('');
+}
+
+const regionPixels = (id, fn) => { for (let k = P.start[id]; k < P.start[id + 1]; k++) fn(P.pix[k]); };
+
+function paintPixel(i, rgb) {
+  const k = P.gray[i] / 255, d = P.data.data;
+  d[i * 4] = rgb[0] * k; d[i * 4 + 1] = rgb[1] * k; d[i * 4 + 2] = rgb[2] * k; d[i * 4 + 3] = 255;
+}
+
+function putBox(ctx, imageData, b) {
+  ctx.putImageData(imageData, 0, 0, b[0], b[1], b[2] - b[0] + 1, b[3] - b[1] + 1);
+}
+
+// Colours a whole region; returns what it was, for undo
+function fillRegion(id, hex) {
+  const before = P.assign[id] !== undefined ? P.assign[id] : null;
+  const shown = colourOf(id);
+  if (shown === hex) return false;
+  const rgb = hexToRgb(hex);
+  regionPixels(id, (i) => paintPixel(i, rgb));
+  putBox(actx, P.data, P.box.get(id));
+  P.assign[id] = hex;
+  P.undo.push({ kind: 'fill', id, before, shownBefore: shown });
+  drawGuesses();
+  return true;
+}
+
+const colourOf = (id) => P.assign[id] || P.colours[id] || '#ffffff';
+
+function regionAt(e) {
+  const r = art.getBoundingClientRect();
+  const x = Math.floor(((e.clientX - r.left) / r.width) * P.w);
+  const y = Math.floor(((e.clientY - r.top) / r.height) * P.h);
+  if (x < 0 || y < 0 || x >= P.w || y >= P.h) return null;
+  return { id: P.labels[y * P.w + x], x, y };
+}
+
+/* ---------- hover outline ---------- */
+let hovered = 0;
+function showHover(id) {
+  if (id === hovered) return;
+  const d = P.hoverData.data;
+  if (hovered && P.box.has(hovered)) {
+    regionPixels(hovered, (i) => (d[i * 4 + 3] = 0));
+    putBox(hctx, P.hoverData, P.box.get(hovered));
+  }
+  hovered = id;
+  if (id && P.box.has(id)) {
+    regionPixels(id, (i) => { d[i * 4] = 255; d[i * 4 + 1] = 40; d[i * 4 + 2] = 150; d[i * 4 + 3] = 90; });
+    putBox(hctx, P.hoverData, P.box.get(id));
+  }
+}
+
+/* ---------- guessed areas ---------- */
+function drawGuesses() {
+  if (!$('#showGuess').checked) { guess.style.display = 'none'; return; }
+  guess.style.display = '';
+  const g = gctx.createImageData(P.w, P.h), d = g.data;
+  for (const id of P.box.keys()) {
+    if (P.chosen.has(id) || P.assign[id]) continue;
+    regionPixels(id, (i) => {
+      const x = i % P.w, y = (i / P.w) | 0;
+      if ((x + y) % 14 < 5) { d[i * 4] = 255; d[i * 4 + 1] = 0; d[i * 4 + 2] = 120; d[i * 4 + 3] = 150; }
+    });
+  }
+  gctx.putImageData(g, 0, 0);
+}
+$('#showGuess').onchange = () => P && drawGuesses();
+
+/* ---------- tools ---------- */
+document.querySelectorAll('[data-tool]').forEach((b) => (b.onclick = () => setTool(b.dataset.tool)));
+function setTool(t) {
+  tool = t;
+  document.querySelectorAll('[data-tool]').forEach((b) => b.classList.toggle('on', b.dataset.tool === t));
+  art.className = t;
+}
+setTool('fill');
+
+let lasso = null;
+art.addEventListener('pointerdown', (e) => {
+  if (!P) return;
+  const at = regionAt(e);
+  if (!at || !at.id) return;
+  if (tool === 'pick' || e.altKey) {
+    setColor(colourOf(at.id));
+    if (tool === 'pick') setTool('fill');
+    return;
+  }
+  if (tool === 'fill') {
+    if (fillRegion(at.id, current)) { remember(current); showDirty(); }
+    return;
+  }
+  if (tool === 'split') {
+    try { art.setPointerCapture(e.pointerId); } catch {}
+    lasso = { region: at.id, pts: [[at.x, at.y]] };
+  }
+});
+art.addEventListener('pointermove', (e) => {
+  if (!P) return;
+  const at = regionAt(e);
+  if (lasso) {
+    if (at) lasso.pts.push([at.x, at.y]);
+    lctx.clearRect(0, 0, P.w, P.h);
+    lctx.lineWidth = 3 / zoom;
+    lctx.strokeStyle = '#ff2f8f';
+    lctx.setLineDash([8 / zoom, 6 / zoom]);
+    lctx.beginPath();
+    lasso.pts.forEach(([x, y], k) => (k ? lctx.lineTo(x, y) : lctx.moveTo(x, y)));
+    lctx.stroke();
+    return;
+  }
+  showHover(at ? at.id : 0);
+  const tip = $('#tip');
+  if (at && at.id) {
+    tip.style.display = 'block';
+    tip.style.left = e.clientX + 14 + 'px';
+    tip.style.top = e.clientY + 12 + 'px';
+    const c = colourOf(at.id);
+    tip.textContent = `area ${at.id} · ${names[c] || c}${P.chosen.has(at.id) || P.assign[at.id] ? '' : ' · guessed'}`;
+  } else tip.style.display = 'none';
+});
+art.addEventListener('pointerleave', () => { showHover(0); $('#tip').style.display = 'none'; });
+art.addEventListener('pointerup', () => {
+  if (!lasso) return;
+  const { region, pts } = lasso;
+  lasso = null;
+  lctx.clearRect(0, 0, P.w, P.h);
+  if (pts.length < 6) return;
+  // keep the outline short for the recipe file
+  const step = Math.max(1, Math.floor(pts.length / 60));
+  const poly = pts.filter((_, k) => k % step === 0);
+  const rgb = hexToRgb(current);
+  const changed = [];
+  const b = P.box.get(region);
+  regionPixels(region, (i) => {
+    const x = i % P.w, y = (i / P.w) | 0;
+    let inside = false;
+    for (let a = 0, c = poly.length - 1; a < poly.length; c = a++) {
+      const [xa, ya] = poly[a], [xb, yb] = poly[c];
+      if (ya > y !== yb > y && x < ((xb - xa) * (y - ya)) / (yb - ya) + xa) inside = !inside;
+    }
+    if (inside) {
+      const d = P.data.data;
+      changed.push([i, d[i * 4], d[i * 4 + 1], d[i * 4 + 2]]);
+      paintPixel(i, rgb);
+    }
+  });
+  if (!changed.length) return;
+  putBox(actx, P.data, b);
+  P.patches.push({ hex: current, region, poly });
+  P.undo.push({ kind: 'patch', region, changed });
+  remember(current);
+  showDirty();
+});
+
+function undo() {
+  if (!P || !P.undo.length) return;
+  const u = P.undo.pop();
+  if (u.kind === 'fill') {
+    const rgb = hexToRgb(u.shownBefore);
+    regionPixels(u.id, (i) => paintPixel(i, rgb));
+    putBox(actx, P.data, P.box.get(u.id));
+    if (u.before === null) delete P.assign[u.id];
+    else P.assign[u.id] = u.before;
+    drawGuesses();
+  } else {
+    const d = P.data.data;
+    for (const [i, r, g, b] of u.changed) { d[i * 4] = r; d[i * 4 + 1] = g; d[i * 4 + 2] = b; }
+    putBox(actx, P.data, P.box.get(u.region));
+    P.patches.pop();
+  }
+  showDirty();
+}
+$('#undo').onclick = undo;
+
+/* ---------- zoom ---------- */
+function setZoom(z, keep) {
+  zoom = Math.max(0.2, Math.min(6, z));
+  const view = $('#view');
+  const before = keep && { x: (view.scrollLeft + keep.x) / parseFloat($('#stack').dataset.z || 1), y: (view.scrollTop + keep.y) / parseFloat($('#stack').dataset.z || 1) };
+  const st = $('#stack');
+  st.dataset.z = zoom;
+  st.style.width = P.w * zoom + 'px';
+  st.style.height = P.h * zoom + 'px';
+  for (const c of [art, guess, hover, lassoEl]) { c.style.width = P.w * zoom + 'px'; c.style.height = P.h * zoom + 'px'; }
+  $('#zoomLabel').textContent = Math.round(zoom * 100) + '%';
+  if (before) { view.scrollLeft = before.x * zoom - keep.x; view.scrollTop = before.y * zoom - keep.y; }
+}
+function fit() {
+  const v = $('#view');
+  setZoom(Math.min((v.clientWidth - 40) / P.w, (v.clientHeight - 40) / P.h));
+}
+$('#zoomIn').onclick = () => setZoom(zoom * 1.4);
+$('#zoomOut').onclick = () => setZoom(zoom / 1.4);
+$('#zoomFit').onclick = fit;
+$('#view').addEventListener('wheel', (e) => {
+  if (!P || !e.ctrlKey) return;
+  e.preventDefault();
+  const r = $('#view').getBoundingClientRect();
+  setZoom(zoom * (e.deltaY < 0 ? 1.15 : 1 / 1.15), { x: e.clientX - r.left, y: e.clientY - r.top });
+}, { passive: false });
+
+/* ---------- save ---------- */
+function showDirty() {
+  const n = Object.keys(P.assign).length + P.patches.length;
+  $('#save').disabled = !n;
+  $('#save').textContent = n ? `Save & rebuild (${n} change${n > 1 ? 's' : ''})` : 'Save & rebuild';
+}
+function status(text, err) {
+  $('#status').textContent = text;
+  $('#status').classList.toggle('err', !!err);
+}
+$('#save').onclick = async () => {
+  if (!P || !P.dirty()) return;
+  $('#save').disabled = true;
+  status('Saving and rebuilding the page…');
+  try {
+    const res = await fetch('/api/save/' + P.slug, { method: 'POST', body: JSON.stringify({ assign: P.assign, patches: P.patches }) });
+    const out = await res.json();
+    if (!res.ok) throw new Error(out.error);
+    await open(P.slug);
+    status('Saved ✓ The page is rebuilt with your colors.');
+  } catch (err) {
+    status('Could not save: ' + err.message, true);
+    showDirty();
+  }
+};
+
+addEventListener('keydown', (e) => {
+  if ((e.ctrlKey || e.metaKey) && e.key === 'z') { e.preventDefault(); undo(); }
+  else if (e.key === 'f') setTool('fill');
+  else if (e.key === 'i') setTool('pick');
+  else if (e.key === 's' && !e.ctrlKey) setTool('split');
+});
+addEventListener('beforeunload', (e) => { if (P && P.dirty()) { e.preventDefault(); e.returnValue = ''; } });
+addEventListener('resize', () => P && fit());
+
+boot();
+</script>
+</body>
+</html>

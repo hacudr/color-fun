@@ -10,3 +10,9 @@ skin 16 100 266 78
 annaCape 82 103 80 203 312 83 91
 #2e4a5c 125 79 144 157 130 189 231 256 222 330 335 287 236
 darkBrown 394 424
+
+// face, filled point by point
+fill eyeWhite 444,156 514,150
+fill iris 455,148 508,153
+fill lips 480,194 475,189 486,189
+fill annaHair 427,170 425,172 428,180

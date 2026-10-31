@@ -194,6 +194,12 @@ function overlay(slug, minArea) {
     out[i * 3] = r * k; out[i * 3 + 1] = gg * k; out[i * 3 + 2] = b * k;
   }
   const S = 3;
+  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+    const sx = x0 + x / scale, sy = y0 + y / scale;
+    if ((x % (10 * scale) === 0 && (x0 + x / scale) % 10 === 0) || (y % (10 * scale) === 0 && (y0 + y / scale) % 10 === 0)) {
+      const o = (y * W + x) * 3; out[o] = (out[o] + 0) >> 1; out[o + 1] = (out[o + 1] + 180) >> 1; out[o + 2] = (out[o + 2] + 255) >> 1;
+    }
+  }
   const put = (x, y, rgb) => { if (x >= 0 && y >= 0 && x < w && y < h) { const i = (y * w + x) * 3; out[i] = rgb[0]; out[i + 1] = rgb[1]; out[i + 2] = rgb[2]; } };
   const text = (str, cx, cy) => {
     const tw = str.length * 4 * S - S, th = 5 * S;
@@ -227,8 +233,9 @@ function readSpec(slug) {
   const colour = new Map();
   const islands = [];
   const patches = [];
+  const fills = [];
   let fallback = 'white';
-  for (const raw of text.split('\n')) {
+  for (const raw of text.split(/\r?\n/)) {
     const line = raw.replace(/\/\/.*$/, '').trim();
     if (!line) continue;
     const [name, ...ids] = line.split(/\s+/);
@@ -237,6 +244,9 @@ function readSpec(slug) {
     // "patch red 3 10,10 40,10 40,40": pixels of region 3 inside that outline are red,
     // for an outline with a gap that let two parts run together
     if (name === 'patch') { hex(ids[0]); patches.push({ name: ids[0], region: +ids[1], poly: ids.slice(2).map((p) => p.split(',').map(Number)) }); continue; }
+    // "fill white 287,173 240,180": a paint bucket, for parts too small to be
+    // regions of their own (eyes, lips): fills within the drawn lines from each point
+    if (name === 'fill') { hex(ids[0]); for (const p of ids.slice(1)) fills.push({ name: ids[0], at: p.split(',').map(Number) }); continue; }
     if (name === 'islands') { hex(ids[0]); islands.push({ name: ids[0], around: new Set(ids.slice(1).map(Number)) }); continue; }
     hex(name);
     for (const id of ids) {
@@ -245,13 +255,21 @@ function readSpec(slug) {
       else colour.set(+id, name);
     }
   }
-  return { colour, fallback, islands, patches };
+  return { colour, fallback, islands, patches, fills };
 }
 
-function build(slug) {
+// The page's regions, as the editor and the builder both see them
+function load(slug) {
   const img = crop(decode(path.join(SRC, sources[slug])));
-  const seg = segment(img);
-  const { colour, fallback, islands, patches } = readSpec(slug);
+  return { img, seg: segment(img) };
+}
+
+// Works out every region's colour from the spec: those named in it, then the
+// islands, then each of the rest from its neighbour. `chosen` holds the regions
+// the spec names itself; the rest were guessed. `over` is the patches' pixels.
+function resolve(slug, img, seg) {
+  const { colour, fallback, islands, patches, fills } = readSpec(slug);
+  const chosen = new Set(colour.keys());
   const all0 = [...seg.pole.keys()];
   // an island may be made of several parts (a lantern's top and bottom), so
   // parts already made islands count as surroundings for the rest
@@ -281,9 +299,7 @@ function build(slug) {
     }
     if (!changed) break;
   }
-  const { w, h, g } = img;
-  const out = Buffer.alloc(w * h * 3);
-  const cache = new Map();
+  const { w, h } = img;
   const over = new Map();
   for (const { name, region, poly } of patches) {
     const xs = poly.map((p) => p[0]), ys = poly.map((p) => p[1]);
@@ -299,6 +315,44 @@ function build(slug) {
       }
     }
   }
+  // the paint buckets: light pixels joined to the point, then a pixel more so
+  // the soft edge of the line takes the colour too
+  const FILL_MAX = 6000;
+  for (const { name, at: [ax, ay] } of fills) {
+    // a point a pixel or two onto a line moves to the nearest light pixel
+    let x0 = ax, y0 = ay;
+    if (img.g[ay * w + ax] < DARK) {
+      let bestD = 99;
+      for (let dy = -3; dy <= 3; dy++) for (let dx = -3; dx <= 3; dx++) {
+        const X = ax + dx, Y = ay + dy, d = dx * dx + dy * dy;
+        if (X >= 0 && Y >= 0 && X < w && Y < h && img.g[Y * w + X] >= DARK && d < bestD) { bestD = d; x0 = X; y0 = Y; }
+      }
+    }
+    const seen = new Set([y0 * w + x0]), todo = [y0 * w + x0];
+    if (img.g[todo[0]] < DARK - 25) { console.warn(`${slug}: fill ${name} at ${x0},${y0} starts on a line`); continue; }
+    while (todo.length && seen.size <= FILL_MAX) {
+      const p = todo.pop(), x = p % w;
+      for (const q of [x > 0 ? p - 1 : -1, x < w - 1 ? p + 1 : -1, p - w, p + w]) {
+        if (q < 0 || q >= w * h || seen.has(q) || img.g[q] < DARK - 25) continue;
+        seen.add(q); todo.push(q);
+      }
+    }
+    if (seen.size > FILL_MAX) { console.warn(`${slug}: fill ${name} at ${x0},${y0} leaks out, skipped`); continue; }
+    for (const p of seen) {
+      over.set(p, name);
+      const x = p % w;
+      for (const q of [x > 0 ? p - 1 : -1, x < w - 1 ? p + 1 : -1, p - w, p + w]) if (q >= 0 && q < w * h && !seen.has(q)) over.set(q, name);
+    }
+  }
+  return { colour, over, fallback, chosen };
+}
+
+function build(slug) {
+  const { img, seg } = load(slug);
+  const { colour, over, fallback } = resolve(slug, img, seg);
+  const { w, h, g } = img;
+  const out = Buffer.alloc(w * h * 3);
+  const cache = new Map();
   for (let i = 0; i < w * h; i++) {
     const name = over.get(i) || colour.get(seg.full[i]) || fallback;
     let rgb = cache.get(name); if (!rgb) cache.set(name, (rgb = hex(name)));
@@ -314,13 +368,64 @@ function build(slug) {
   console.log(`${slug}: built ${w}x${h}${missing ? `, ${missing} regions fell back to ${fallback}` : ''}`);
 }
 
-const [cmd, arg, min] = process.argv.slice(2);
-if (cmd === 'overlay') overlay(arg, +(min || 600));
+// A close-up of the page as built, enlarged, with every area numbered:
+// node tools/seg.js zoom <slug> x y w h [scale]  -> build/zoom-<slug>.png
+function zoom(slug, x0, y0, cw, ch, scale = 3) {
+  const { img, seg: s } = load(slug);
+  const { colour, over, fallback } = resolve(slug, img, s);
+  const { w, g } = img;
+  const W = cw * scale, H = ch * scale;
+  const out = Buffer.alloc(W * H * 3);
+  const cache = new Map();
+  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+    const sx = x0 + Math.floor(x / scale), sy = y0 + Math.floor(y / scale);
+    const i = sy * w + sx;
+    const name = over.get(i) || colour.get(s.full[i]) || fallback;
+    let rgb = cache.get(name); if (!rgb) cache.set(name, (rgb = hex(name)));
+    const k = g[i] / 255, o = (y * W + x) * 3;
+    out[o] = rgb[0] * k; out[o + 1] = rgb[1] * k; out[o + 2] = rgb[2] * k;
+  }
+  const put = (x, y, rgb) => { if (x >= 0 && y >= 0 && x < W && y < H) { const o = (y * W + x) * 3; out[o] = rgb[0]; out[o + 1] = rgb[1]; out[o + 2] = rgb[2]; } };
+  const S = 2;
+  // each area's number at the point deepest inside it, within the close-up
+  const best = new Map();
+  for (let y = y0; y < y0 + ch; y++) for (let x = x0; x < x0 + cw; x++) {
+    const l = s.label[y * w + x]; if (!l) continue;
+    // distance to the area's edge, cheaply: how far the same area runs each way
+    let d = 0;
+    while (d < 40 && s.label[y * w + x + d + 1] === l && s.label[y * w + x - d - 1] === l && s.label[(y + d + 1) * w + x] === l && s.label[(y - d - 1) * w + x] === l) d++;
+    const b = best.get(l);
+    if (!b || d > b.d) best.set(l, { d, x, y });
+  }
+  for (const [l, p] of best) {
+    if (p.d < 1) continue;
+    const str = String(l), tw = str.length * 4 * S - S, th = 5 * S;
+    const cx = (p.x - x0) * scale + scale / 2, cy = (p.y - y0) * scale + scale / 2;
+    const bx = Math.round(cx - tw / 2), by = Math.round(cy - th / 2);
+    for (let y = -1; y < th + 1; y++) for (let x = -1; x < tw + 1; x++) put(bx + x, by + y, [255, 255, 255]);
+    [...str].forEach((c, k) => FONT[c].forEach((row, ry) => [...row].forEach((bit, rx) => {
+      if (bit === '1') for (let a = 0; a < S; a++) for (let b = 0; b < S; b++) put(bx + k * 4 * S + rx * S + b, by + ry * S + a, [210, 0, 0]);
+    })));
+  }
+  // the page coordinates of every other grid line, along the top and the left
+  const tag = (str, bx, by) => [...str].forEach((c, k) => FONT[c].forEach((row, ry) => [...row].forEach((bit, rx) => {
+    for (let a = 0; a < S; a++) for (let b = 0; b < S; b++) put(bx + k * 4 * S + rx * S + b, by + ry * S + a, bit === '1' ? [0, 60, 200] : [255, 255, 255]);
+  })));
+  for (let v = Math.ceil(x0 / 20) * 20; v < x0 + cw; v += 20) tag(String(v), (v - x0) * scale + 2, 2);
+  for (let v = Math.ceil(y0 / 20) * 20; v < y0 + ch; v += 20) tag(String(v), 2, (v - y0) * scale + 2);
+  encode(out, W, H, 'rgb24', path.join(ROOT, 'build', `zoom-${slug}.png`));
+}
+
+module.exports = { load, resolve, build, hex, sources, PALETTE };
+const [cmd, arg, min] = require.main === module ? process.argv.slice(2) : [];
+if (!cmd);
+else if (cmd === 'overlay') overlay(arg, +(min || 600));
 else if (cmd === 'at') {
   // node tools/seg.js at <slug> x,y x,y ...  (pixels of the overlay)
   const img = crop(decode(path.join(SRC, sources[arg])));
   const seg = segment(img);
   for (const xy of process.argv.slice(4)) { const [x, y] = xy.split(',').map(Number); console.log(xy, '->', seg.full[y * img.w + x]); }
 }
+else if (cmd === 'zoom') zoom(arg, ...process.argv.slice(4).map(Number));
 else if (cmd === 'build') (arg === 'all' ? Object.keys(sources).filter((s) => fs.existsSync(path.join(__dirname, 'spec', `${s}.txt`))) : [arg]).forEach(build);
-else console.log('usage: node tools/seg.js overlay <slug> [minArea] | build <slug>|all');
+else if (require.main === module) console.log('usage: node tools/seg.js overlay <slug> [minArea] | build <slug>|all');

@@ -10,3 +10,12 @@ blue 212 267 250 246 261 275 281
 pink 340 353 356
 flounder 23 162 302 200
 flounderBlue 3 14 34 58 151 159 169 187 215 219 191 199 236 297 301 305 315
+
+// face, filled point by point
+iris 115
+lips 131 133
+white 134
+fill iris 618,360
+fill white 613,337
+eyeWhite 114
+white 116

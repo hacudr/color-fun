@@ -15,3 +15,11 @@ islands pink 39 47 115
 lightBrown 55 107 93 142 145 146 148
 cream 112 126 136
 grass 140
+
+// face, filled point by point
+eyeWhite 34
+irisBrown 35
+white 36
+lips 48 52
+irisBrown 43
+white 41
